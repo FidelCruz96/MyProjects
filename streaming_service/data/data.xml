@@ -1,0 +1,15 @@
+<odoo>
+	<data>
+		<record id="ir_cron_run_sales_quota" model="ir.cron">
+			<field name="name"> Sales Quota Calculation</field>
+			<field name="model_id" ref="model_sales_plan" />
+			<field name="state">code</field>
+			<field name="code">model.massive_sales_plan()</field>
+			<field name="interval_number">1</field>
+			<field name="interval_type">months</field>
+			<field name="numbercall">-1</field>
+			<field name="doall" eval="False" />
+			<field name="active" eval="True" />
+		</record>
+	</data>
+</odoo>

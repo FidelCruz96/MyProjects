@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="view_user_risk_tree" model="ir.ui.view">
+        <field name="name">user.risk.tree</field>
+        <field name="model">user.risk.history</field>
+        <field name="arch" type="xml">
+            <tree string="Historial de Riesgo">
+                <field name="user_id"/>
+                <field name="date"/>
+                <field name="severity"/>
+                <field name="login_ip"/>
+                <field name="login_location"/>
+                <field name="is_anomalous" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="view_user_risk_form" model="ir.ui.view">
+        <field name="name">user.risk.form</field>
+        <field name="model">user.risk.history</field>
+        <field name="arch" type="xml">
+            <form string="Detalle del Historial de Riesgo">
+                <sheet>
+                    <group>
+                        <field name="user_id"/>
+                        <field name="date"/>
+                        <field name="severity"/>
+                        <field name="login_ip"/>
+                        <field name="login_location"/>
+                        <field name="is_anomalous" widget="boolean_toggle"/>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+</odoo>

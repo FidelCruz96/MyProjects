@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_streaming_service,access_streaming_service,model_streaming_service,,1,1,1,1
+access_streaming_salesman,access_streaming_salesman,model_streaming_salesman,,1,1,1,1
+access_streaming_platforms,access_streaming_platforms,model_streaming_platforms,,1,1,1,1
+access_user_risk_history,access_user_risk_history,model_user_risk_history,,1,1,1,1

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_streaming_service_tree" model="ir.ui.view">
+            <field name="name">streaming.service.tree</field>
+            <field name="model">streaming.service</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="user_id"/>
+                    <field name="platform_id"/>
+                    <field name="price_id"/>
+                    <field name="salesman_id"/>
+                    <field name="payment_date"/>
+                    <field name="expired_date" optional="hide"/>
+                    <field name="end_date"/>
+                    <field name="state" widget="statusbar" statusbar_visible="active,inactive" options="{'red': [('inactive', '=', True)]}"/>
+                    <field name="start_date" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="streaming_service_view_search" model="ir.ui.view">
+            <field name="name">streaming.service.view.search</field>
+            <field name="model">streaming.service</field>
+            <field name="arch" type="xml">
+                <search>
+                    <filter name="state_active" string="Activo" domain="[('state', '=', 'active')]" context="{'group_by': 'user_id'}" />
+                    <filter name="state_inactive" string="Inactivo" domain="[('state', '=', 'inactive')]" context="{'group_by': 'user_id'}" />
+                </search>
+            </field>
+        </record>
+
+
+
+        <record id="view_streaming_service_form" model="ir.ui.view">
+            <field name="name">streaming.service.form</field>
+            <field name="model">streaming.service</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="user_id"/>
+                                <field name="platform_id"/>
+                                <field name="price_id"/>
+                                <field name="payment_date"/>
+                                <field name="expired_date"/>
+                            </group>        
+                            <group>
+                                <field name="salesman_id"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="state"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!--Accion-->
+        <record id="streaming_service_action" model="ir.actions.act_window">
+            <field name="name">Servicio de Streaming</field>
+            <field name="res_model">streaming.service</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!--Menu-->
+        <!--<menuitem
+            id="menu_product_demand_prediction"
+            name="Predictorio de demanda de productos"
+            parent="stock.menu_warehouse_report"
+            action="product_demand_prediction_status_action"
+            sequence="100" />-->
+
+        <menuitem
+            id="Streaming_menu_root"
+            name="Streaming"
+            action="streaming_service_action"
+            sequence="10"/>
+
+
+            <record id="view_streaming_salesman_tree" model="ir.ui.view">
+                <field name="name">streaming.salesman.tree</field>
+                <field name="model">streaming.salesman</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <field name="code"/>
+                        <field name="name"/>
+                        <field name="email"/>
+                        <field name="phone"/>
+                    </tree>
+                </field>
+            </record>
+
+            <record id="view_streaming_salesman_form" model="ir.ui.view">
+                <field name="name">streaming.salesman.form</field>
+                <field name="model">streaming.salesman</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <field name="code"/>
+                        <field name="name"/>
+                        <field name="email"/>
+                        <field name="phone"/>
+                    </tree>
+                </field>
+            </record>
+
+            <record id="streaming_salesman_action" model="ir.actions.act_window">
+                <field name="name">Vendedores de Streaming</field>
+                <field name="res_model">streaming.salesman</field>
+                <field name="view_mode">tree,form</field>
+            </record>
+            
+
+            <menuitem
+            id="menu_streaming_salesman"
+            name="Vendedores"
+            action="streaming_salesman_action"
+            parent="streaming_service.Streaming_menu_root"
+            sequence="120" />
+
+
+            <record id="view_streaming_platforms_tree" model="ir.ui.view">
+                <field name="name">streaming.platforms.tree</field>
+                <field name="model">streaming.platforms</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <field name="name"/>
+                        <field name="profiles"/>
+                        <field name="price_id"/>
+                    </tree>
+                </field>
+            </record>
+
+            <record id="view_streaming_platforms_form" model="ir.ui.view">
+                <field name="name">streaming.platforms.form</field>
+                <field name="model">streaming.platforms</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <field name="name"/>
+                        <field name="price_id"/>
+                        <field name="profiles"/>
+                    </tree>
+                </field>
+            </record>
+
+            <record id="streaming_platforms_action" model="ir.actions.act_window">
+                <field name="name">Plataformas de Streaming</field>
+                <field name="res_model">streaming.platforms</field>
+                <field name="view_mode">tree,form</field>
+            </record>
+            
+
+            <menuitem
+            id="menu_streaming_platforms"
+            name="Plataformas"
+            action="streaming_platforms_action"
+            parent="streaming_service.Streaming_menu_root"
+            sequence="150" />
+    </data>
+</odoo>
