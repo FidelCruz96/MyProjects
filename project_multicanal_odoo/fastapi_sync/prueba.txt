@@ -1,0 +1,8 @@
+curl -u admin:admin123 http://localhost:8001/crear_pedido \
+  -X POST -H "Content-Type: application/json" \
+  -d '{
+    "partner_id": 1,
+    "channel_code": "WEB",
+    "order_ref": "WEB-2025-001",
+    "order_lines": [{"product_id": 10, "quantity": 1}]
+}'

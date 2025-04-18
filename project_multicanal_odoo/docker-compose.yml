@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    container_name: odoo_db_13
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+    volumes:
+      - odoo_db_data:/var/lib/postgresql/data
+
+  odoo:
+    image: odoo:16
+    container_name: odoo_app
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    volumes:
+      - ./config/odoo.conf:/etc/odoo/odoo.conf
+      - ./addons:/mnt/extra-addons
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+
+  fastapi_sync:
+    build: ./fastapi_sync
+    container_name: fastapi_sync
+    ports:
+      - "8001:8000"
+    env_file:
+      - ./fastapi_sync/.env
+    depends_on:
+      - odoo
+
+  recommender_service:
+    build: ./product_recommender
+    container_name: recommender_service
+    ports:
+      - "8002:8000"
+    env_file:
+      - ./product_recommender/.env
+    depends_on:
+      - odoo
+
+  redis:
+    image: redis:alpine
+    container_name: redis_cache
+    ports:
+      - "6379:6379"
+
+volumes:
+  odoo_db_data:
