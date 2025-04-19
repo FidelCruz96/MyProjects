@@ -1,4 +1,4 @@
-# 🧠 Sistema Multicanal + Recomendador Inteligente con Odoo 16 + FastAPI
+# 🧠 Sistema de Gestión de Pedidos Multicanal y Recomendación Inteligente con Odoo 16 + FastAPI
 
 Este proyecto es una arquitectura basada en microservicios que permite:
 
@@ -9,7 +9,7 @@ Este proyecto es una arquitectura basada en microservicios que permite:
 
 ---
 
-## 🧱 Estructura del Proyecto
+##  Estructura del Proyecto
 
 ```
 project_multicanal_odoo/
@@ -45,9 +45,8 @@ project_multicanal_odoo/
 - Entrena modelo desde `sale.order.line`
 - Responde con top productos usando `/recomendar`
 
----
 
-## 🐳 Cómo ejecutar
+##  Cómo ejecutar
 
 Desde la raíz del proyecto:
 
@@ -60,18 +59,17 @@ Luego accede a:
 - FastAPI Sync: `http://localhost:8001/docs`
 - Product Recommender: `http://localhost:8002/docs`
 
----
 
-## 🔐 Variables de entorno
+## Variables de entorno
 
 ### `.env` para `fastapi_sync`
 ```
 ODOO_URL=http://odoo:8069
 ODOO_DB=odoo_db
 ODOO_USER=admin
-ODOO_PASSWORD=admin123
+ODOO_PASSWORD=admin
 API_USER=admin
-API_PASSWORD=admin123
+API_PASSWORD=admin
 ```
 
 ### `.env` para `product_recommender`
@@ -79,10 +77,9 @@ API_PASSWORD=admin123
 ODOO_URL=http://odoo:8069
 ODOO_DB=odoo_db
 ODOO_USER=admin
-ODOO_PASSWORD=admin123
+ODOO_PASSWORD=admin
 ```
 
----
 
 ## 🧪 Probar el sistema
 
@@ -90,7 +87,7 @@ ODOO_PASSWORD=admin123
 
 ```bash
 curl -X POST http://localhost:8001/crear_pedido \
-  -u admin:admin123 \
+  -u admin:admin \
   -H "Content-Type: application/json" \
   -d '{
     "partner_id": 3,
@@ -110,7 +107,6 @@ curl -X POST http://localhost:8002/recomendar \
   -d '{"partner_id": 3, "top_n": 3}'
 ```
 
----
 
 ## 🧠 Entrenar modelo de recomendación
 
@@ -120,7 +116,21 @@ docker exec -it recommender_service python main.py
 
 Esto generará `model.pkl` con las recomendaciones históricas para cada cliente.
 
----
+## 🔐 Seguridad integrada
+Los microservicios aplican prácticas clave de ciberseguridad:
+
+-  Autenticación básica HTTP: para proteger los endpoints de acceso externo
+-  Auditoría centralizada: Todos los accesos y recomendaciones se registran en el modelo `audit.log` de Odoo
+-  Rate Limiting con `slowapi`: limita a 5 solicitudes/minuto para prevenir abusos
+-  Validación estricta de entradas: usando Pydantic para garantizar integridad de los datos
+
+## 🧠 Conocimientos aplicados
+
+- Python (FastAPI, Pydantic)
+- Odoo Framework (XML-RPC, modelos personalizados)
+- Docker y Docker Compose
+- Seguridad en APIs: autenticación, auditoría, rate limiting
+- Arquitectura basada en microservicios
 
 ## 📄 Licencia
 
